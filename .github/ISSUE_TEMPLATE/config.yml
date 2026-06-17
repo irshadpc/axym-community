@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions & Discussions
+    url: https://github.com/axym-community/axym-community/discussions
+    about: Use GitHub Discussions for general questions and community discussions
+  - name: Documentation
+    url: https://github.com/axym-community/axym-community/wiki
+    about: Check the documentation for guides and how-tos
