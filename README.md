@@ -20,12 +20,20 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.4.0` | [tui-v0.4.0](../../releases/tag/tui-v0.4.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.6.0` | [tui-v0.6.0](../../releases/tag/tui-v0.6.0) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.8.0` | [desktop-v12.8.0](../../releases/tag/desktop-v12.8.0) · [all desktop releases](../../releases?q=desktop-v) |
+
+> **New in TUI 0.6.0** — `axym-tui web`: pair a phone with one QR scan
+> (live transcript, submit, steer, approvals from any browser, optional
+> Cloudflare tunnel — no VPN app needed). Unattended runs: a wake lock
+> keeps long turns alive through screen lock, and opt-in ntfy push
+> notifies your phone when a turn ends or every provider stalls.
+> Provider resilience: persisted cooldowns, reset-aware failover, and a
+> circuit breaker stop the quota ping-pong.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.4.0`):
+Pick the file for your platform (`<v>` = version, e.g. `0.6.0`):
 
 | File | Platform |
 |---|---|
@@ -62,6 +70,7 @@ With none installed the TUI starts but cannot act. Inside the TUI,
 axym-tui                                # interactive session in the current project
 axym-tui --provider claude --mode plan  # explicit provider + read-only mode
 axym-tui -p "summarize uncommitted changes"   # headless, for scripts and CI
+axym-tui web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
 ```
 
 > **macOS Gatekeeper:** the binaries are unsigned, so macOS may block the
@@ -112,14 +121,14 @@ nothing extra to install on a normal up-to-date system.
 - **Desktop (macOS, AppImage):** the app checks for updates itself and
   offers one-click install + relaunch. `.deb` / `.rpm` users can also just
   install the newer package over the old one.
-- **TUI:** re-download the latest `tui-v*` archive and replace the binary
-  (or re-run `--install`).
+- **TUI:** `/update` inside the TUI (or `axym-tui --update`) downloads the
+  latest release, verifies its SHA-256, and installs in place.
 
 ## Requirements at a glance
 
 | | Needs | No admin? | Auto-updates? |
 |---|---|---|---|
-| TUI | One agent CLI on `PATH` (see above) | Yes | No — replace the binary |
+| TUI | One agent CLI on `PATH` (see above) | Yes | Yes — `/update` |
 | Desktop macOS | — (quarantine clear on first run) | Yes | Yes, in-app |
 | Desktop Linux AppImage | FUSE (`libfuse2` on Ubuntu 22.04+) | Yes | Yes, in-app |
 | Desktop Linux deb/rpm | root for install | No | Via re-install |
