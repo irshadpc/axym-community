@@ -20,10 +20,13 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.11.8` | [tui-v0.11.8](../../releases/tag/tui-v0.11.8) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.11.9` | [tui-v0.11.9](../../releases/tag/tui-v0.11.9) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.8.0` | [desktop-v12.8.0](../../releases/tag/desktop-v12.8.0) · [all desktop releases](../../releases?q=desktop-v) |
 
-> **New in TUI 0.7–0.11** — real terminal scrollback (full history, sticky
+> **New in TUI 0.11.9** — pending approval gates grab your attention
+> (terminal bell + native notification, re-nudges every 30s while waiting).
+>
+> **Earlier in 0.7–0.11** — real terminal scrollback (full history, sticky
 > input); TodoWrite renders as a live checklist; LLM council (`/council`)
 > gets parallel multi-provider review with merged output; ACP on by
 > default; uniform approval gate with per-tool always-allow that persists;
@@ -43,7 +46,7 @@ front door: grab the latest builds below, no account or build tools needed.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.11.8`):
+Pick the file for your platform (`<v>` = version, e.g. `0.11.9`):
 
 | File | Platform |
 |---|---|
