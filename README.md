@@ -20,20 +20,30 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.6.0` | [tui-v0.6.0](../../releases/tag/tui-v0.6.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.11.8` | [tui-v0.11.8](../../releases/tag/tui-v0.11.8) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.8.0` | [desktop-v12.8.0](../../releases/tag/desktop-v12.8.0) · [all desktop releases](../../releases?q=desktop-v) |
 
-> **New in TUI 0.6.0** — `axym-tui web`: pair a phone with one QR scan
-> (live transcript, submit, steer, approvals from any browser, optional
-> Cloudflare tunnel — no VPN app needed). Unattended runs: a wake lock
-> keeps long turns alive through screen lock, and opt-in ntfy push
-> notifies your phone when a turn ends or every provider stalls.
-> Provider resilience: persisted cooldowns, reset-aware failover, and a
-> circuit breaker stop the quota ping-pong.
+> **New in TUI 0.7–0.11** — real terminal scrollback (full history, sticky
+> input); TodoWrite renders as a live checklist; LLM council (`/council`)
+> gets parallel multi-provider review with merged output; ACP on by
+> default; uniform approval gate with per-tool always-allow that persists;
+> per-provider image gating; git permissions + `/pull`; stall watchdog and
+> long-session OOM fix; model selection forwarded to ACP providers.
+> Still here from 0.6.0: `axym-tui web` phone pairing over QR (live
+> transcript, approvals, optional Cloudflare tunnel), wake-lock unattended
+> runs with ntfy push, and quota-aware provider failover with cooldowns
+> and circuit breaker.
+>
+> **New in Desktop 12.8.0** — agent provider layer (Copilot + Cursor join
+> the registry, ACP transport, `/doctor` diagnostics), TUI parity
+> (searchable model picker, task checklist, status bar, mode switcher,
+> council toggle, tool timeline, transcript export), multimodal input, and
+> quota-aware failover that rides out session-limit walls instead of
+> retrying into them.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.6.0`):
+Pick the file for your platform (`<v>` = version, e.g. `0.11.8`):
 
 | File | Platform |
 |---|---|
