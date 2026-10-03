@@ -20,13 +20,22 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.11.9` | [tui-v0.11.9](../../releases/tag/tui-v0.11.9) · [all TUI releases](../../releases?q=tui-v) |
-| Axym Desktop | `12.8.0` | [desktop-v12.8.0](../../releases/tag/desktop-v12.8.0) · [all desktop releases](../../releases?q=desktop-v) |
+| Axym TUI | `0.12.0` | [tui-v0.12.0](../../releases/tag/tui-v0.12.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym Desktop | `12.11.0` | [desktop-v12.11.0](../../releases/tag/desktop-v12.11.0) · [all desktop releases](../../releases?q=desktop-v) |
 
-> **New in TUI 0.11.9** — pending approval gates grab your attention
-> (terminal bell + native notification, re-nudges every 30s while waiting).
+> **New in TUI 0.12.0** — `--yolo` (alias `--dangerously-skip-permissions`)
+> turns off every approval prompt for the session: the host tool-call gate,
+> git writes, and the provider's own permission prompts. It implies
+> `--mode auto` and **has no undo** — use it in disposable or fully-trusted
+> workspaces. Background workers (`/bg:tests`) now stream live output:
+> `/status` shows the command, elapsed time, and tail; the status bar shows a
+> `⏳ bg:` timer.
 >
-> **Earlier in 0.7–0.11** — real terminal scrollback (full history, sticky
+> **New in Desktop 12.11.0** — ships alongside TUI 0.12.0; this cycle's user
+> facing features land in the TUI, plus a scroll-UX rework of the legacy
+> Python dashboard (sticky headers, scroll-preserving refresh, back-to-top).
+>
+> **Earlier in TUI 0.7–0.11** — real terminal scrollback (full history, sticky
 > input); TodoWrite renders as a live checklist; LLM council (`/council`)
 > gets parallel multi-provider review with merged output; ACP on by
 > default; uniform approval gate with per-tool always-allow that persists;
@@ -37,16 +46,15 @@ front door: grab the latest builds below, no account or build tools needed.
 > runs with ntfy push, and quota-aware provider failover with cooldowns
 > and circuit breaker.
 >
-> **New in Desktop 12.8.0** — agent provider layer (Copilot + Cursor join
-> the registry, ACP transport, `/doctor` diagnostics), TUI parity
-> (searchable model picker, task checklist, status bar, mode switcher,
-> council toggle, tool timeline, transcript export), multimodal input, and
-> quota-aware failover that rides out session-limit walls instead of
-> retrying into them.
+> **Earlier in Desktop** — 12.10.0 Engineering Advisor (adaptive health model,
+> priorities, Mission Control panel); 12.8.0 agent provider layer (Copilot +
+> Cursor in the registry, ACP transport, `/doctor` diagnostics), TUI parity,
+> multimodal input, and quota-aware failover that rides out session-limit
+> walls instead of retrying into them.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.11.9`):
+Pick the file for your platform (`<v>` = version, e.g. `0.12.0`):
 
 | File | Platform |
 |---|---|
@@ -61,6 +69,19 @@ tar -xzf axym-tui-<v>-macos.tar.gz        # or the linux tarball
 ./axym-tui-macos-arm64 --version          # Apple Silicon (use -x64 on Intel, no suffix juggling on Linux)
 ./axym-tui-macos-arm64 --install          # optional: copy to ~/.local/bin + install the man page
 ```
+
+Latest direct links:
+
+```sh
+# macOS (Apple Silicon + Intel)
+curl -fL -o axym-tui.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.12.0/axym-tui-0.12.0-macos.tar.gz
+tar -xzf axym-tui.tar.gz && ./axym-tui-macos-arm64 --version
+```
+
+> TUI links are pinned to the `tui-v0.12.0` tag rather than
+> `releases/latest/download/`. GitHub allows only one *latest* release per
+> repository and that slot belongs to the desktop app — which also needs
+> `/latest/` to resolve `install-macos.sh`.
 
 **Windows** — extract the zip and run `axym-tui-windows-x86_64.exe`
 from PowerShell or `cmd`.
@@ -101,6 +122,12 @@ axym-tui web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
 | `axym-<v>-linux-x86_64.tar.gz` | Linux — portable, just the binary |
 | `axym-<v>-windows-x86_64.zip` | Windows — portable (`axym.exe` + WebView2 loader) |
 
+> **12.11.0 Linux packaging:** this release was built on macOS, so it ships the
+> macOS universal `.dmg`, the Linux **portable tarball**, and the Windows zip.
+> The Linux `.deb` / `.AppImage` / `.rpm` installers are produced on a Linux
+> build host — the newest of those on this page are `12.8.0`. Grab the tarball
+> below if you want 12.11.0 on Linux today; it needs no installer.
+
 **macOS** — open the `.dmg` and drag Axym to Applications, or:
 
 ```sh
@@ -114,8 +141,14 @@ curl -fsSL https://github.com/irshadpc/axym-community/releases/latest/download/i
 **Linux**
 
 ```sh
-chmod +x Axym_<v>_amd64.AppImage && ./Axym_<v>_amd64.AppImage   # no install needed
-sudo apt install ./Axym_<v>_amd64.deb                          # or: sudo dnf install ./Axym-<v>-1.x86_64.rpm
+# portable tarball — works on any x86_64 distro, nothing to install
+curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.11.0/axym-12.11.0-linux-x86_64.tar.gz
+tar -xzf axym-linux.tar.gz
+./axym-linux/axym                  # or ./axym-linux/install.sh
+
+# older installers (12.8.0), if you prefer an installed package
+chmod +x Axym_12.8.0_amd64.AppImage && ./Axym_12.8.0_amd64.AppImage
+sudo apt install ./Axym_12.8.0_amd64.deb        # or: sudo dnf install ./Axym-12.8.0-1.x86_64.rpm
 ```
 
 > The AppImage needs FUSE to run. On Ubuntu 22.04+ install it first:
