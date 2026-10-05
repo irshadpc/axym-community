@@ -20,9 +20,17 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.12.0` | [tui-v0.12.0](../../releases/tag/tui-v0.12.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.12.1` | [tui-v0.12.1](../../releases/tag/tui-v0.12.1) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.11.0` | [desktop-v12.11.0](../../releases/tag/desktop-v12.11.0) · [all desktop releases](../../releases?q=desktop-v) |
 
+> **New in TUI 0.12.1** — a `--yolo` session now says so: a sticky flag on the
+> session record means a resumed or exported transcript still shows that every
+> tool-call and git-write approval gate was disabled for part of the run
+> (`**--yolo was active**` in the transcript export). Headless runs are
+> cancellable too — an interrupted `axym-tui -p` run exits `130` with
+> `✗ interrupted` instead of hanging, and never reports success for a
+> half-finished turn.
+>
 > **New in TUI 0.12.0** — `--yolo` (alias `--dangerously-skip-permissions`)
 > turns off every approval prompt for the session: the host tool-call gate,
 > git writes, and the provider's own permission prompts. It implies
@@ -31,9 +39,10 @@ front door: grab the latest builds below, no account or build tools needed.
 > `/status` shows the command, elapsed time, and tail; the status bar shows a
 > `⏳ bg:` timer.
 >
-> **New in Desktop 12.11.0** — ships alongside TUI 0.12.0; this cycle's user
-> facing features land in the TUI, plus a scroll-UX rework of the legacy
-> Python dashboard (sticky headers, scroll-preserving refresh, back-to-top).
+> **New in Desktop 12.11.0** — shipped alongside TUI 0.12.0 (the TUI has since
+> moved to 0.12.1); this cycle's user-facing features land in the TUI, plus a
+> scroll-UX rework of the legacy Python dashboard (sticky headers,
+> scroll-preserving refresh, back-to-top).
 >
 > **Earlier in TUI 0.7–0.11** — real terminal scrollback (full history, sticky
 > input); TodoWrite renders as a live checklist; LLM council (`/council`)
@@ -54,7 +63,7 @@ front door: grab the latest builds below, no account or build tools needed.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.12.0`):
+Pick the file for your platform (`<v>` = version, e.g. `0.12.1`):
 
 | File | Platform |
 |---|---|
@@ -74,14 +83,19 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym-tui.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.12.0/axym-tui-0.12.0-macos.tar.gz
+curl -fL -o axym-tui.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.12.1/axym-tui-0.12.1-macos.tar.gz
 tar -xzf axym-tui.tar.gz && ./axym-tui-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.12.0` tag rather than
+> TUI links are pinned to the `tui-v0.12.1` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
+
+**Verify what you downloaded** — every TUI release ships `SHA256SUMS.txt`
+(check it with `shasum -a 256 -c SHA256SUMS.txt`) plus a machine-readable
+`release-manifest.json` carrying the product, version, source commit, and
+per-artifact hashes.
 
 **Windows** — extract the zip and run `axym-tui-windows-x86_64.exe`
 from PowerShell or `cmd`.
