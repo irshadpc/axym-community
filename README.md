@@ -20,9 +20,26 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.12.1` | [tui-v0.12.1](../../releases/tag/tui-v0.12.1) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.13.0` | [tui-v0.13.0](../../releases/tag/tui-v0.13.0) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.11.0` | [desktop-v12.11.0](../../releases/tag/desktop-v12.11.0) · [all desktop releases](../../releases?q=desktop-v) |
 
+> **New in TUI 0.13.0** — Claude Code-grade input editing plus a
+> process-lifetime correctness series. Bracketed paste is never
+> re-interpreted as keystrokes (long pastes collapse to `[Pasted text #n]`
+> chips, expanded on submit); image attachments ride along as `[Image #n]`
+> chips from drag-drop, clipboard, or a pasted file path (attachability is
+> sniffed by magic bytes, not extension); `/copy` grabs the last response
+> over OSC 52 so it works over SSH and tmux; ctrl+g / ctrl+x ctrl+e compose
+> the prompt in `$VISUAL`/`$EDITOR`; `/vim` gives a persistent vim editing
+> mode. Tool rows now render as colored pill badges (`BASH [git log --oneline]`)
+> whose background turns red once a call fails, with descriptive labels for
+> every backend. The C-01…C-10 fixes mean nothing is auto-approved in your
+> name, streaming text is never reordered or dropped, finished turns hit
+> disk immediately, and every child process, wake lock, and public tunnel
+> the TUI starts dies with it — a cancelled background command stops its
+> whole process tree. Releases are now gated on a real-pty end-to-end run of
+> the shipped binary before they publish.
+>
 > **New in TUI 0.12.1** — a `--yolo` session now says so: a sticky flag on the
 > session record means a resumed or exported transcript still shows that every
 > tool-call and git-write approval gate was disabled for part of the run
@@ -40,7 +57,7 @@ front door: grab the latest builds below, no account or build tools needed.
 > `⏳ bg:` timer.
 >
 > **New in Desktop 12.11.0** — shipped alongside TUI 0.12.0 (the TUI has since
-> moved to 0.12.1); this cycle's user-facing features land in the TUI, plus a
+> moved to 0.13.0); this cycle's user-facing features land in the TUI, plus a
 > scroll-UX rework of the legacy Python dashboard (sticky headers,
 > scroll-preserving refresh, back-to-top).
 >
@@ -63,7 +80,7 @@ front door: grab the latest builds below, no account or build tools needed.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.12.1`):
+Pick the file for your platform (`<v>` = version, e.g. `0.13.0`):
 
 | File | Platform |
 |---|---|
@@ -83,11 +100,11 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym-tui.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.12.1/axym-tui-0.12.1-macos.tar.gz
+curl -fL -o axym-tui.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.13.0/axym-tui-0.13.0-macos.tar.gz
 tar -xzf axym-tui.tar.gz && ./axym-tui-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.12.1` tag rather than
+> TUI links are pinned to the `tui-v0.13.0` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
