@@ -20,10 +20,29 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.13.0` | [tui-v0.13.0](../../releases/tag/tui-v0.13.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.14.1` | [tui-v0.14.1](../../releases/tag/tui-v0.14.1) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.11.0` | [desktop-v12.11.0](../../releases/tag/desktop-v12.11.0) · [all desktop releases](../../releases?q=desktop-v) |
 
-> **New in TUI 0.13.0** — Claude Code-grade input editing plus a
+> **New in TUI 0.14.1** — `--install` was completely broken on Windows (and
+> on any standalone binary): it always tried to wrap a `dist/axym-tui.mjs`
+> bundle that doesn't exist next to a compiled standalone executable, so it
+> failed outright with "TUI bundle not found." Fixed to copy the running
+> binary directly when no bundle is present — Windows installs now land at
+> `%LOCALAPPDATA%\Axym\bin\axym-tui.exe` with a correct `PATH` check.
+>
+> **New in TUI 0.14.0** — custom workflows: `/workflow new <name>` opens
+> your editor on a plain-text template (steps separated by a lone `---`
+> line, optional `{goal}` placeholder); `/workflow save <name>` turns a
+> conversation you already had into a reusable one; `/workflow run <name>
+> [goal]` replays it on any provider, one step per turn, so later steps see
+> earlier real output as context. Three starters ship pre-seeded
+> (`engineer-flow`, `product-discovery`, `security-review`). Also: a fix for
+> axym-runtime silently invoking codex instead of Claude, live per-stage
+> axym-runtime progress, provider failover on untagged ACP stops, and a
+> fix for `/compact`/`/new`/`/clear` silently clearing the visible
+> transcript.
+>
+> **Earlier in TUI 0.13.0** — Claude Code-grade input editing plus a
 > process-lifetime correctness series. Bracketed paste is never
 > re-interpreted as keystrokes (long pastes collapse to `[Pasted text #n]`
 > chips, expanded on submit); image attachments ride along as `[Image #n]`
@@ -80,7 +99,7 @@ front door: grab the latest builds below, no account or build tools needed.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.13.0`):
+Pick the file for your platform (`<v>` = version, e.g. `0.14.1`):
 
 | File | Platform |
 |---|---|
@@ -100,11 +119,11 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym-tui.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.13.0/axym-tui-0.13.0-macos.tar.gz
+curl -fL -o axym-tui.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.14.1/axym-tui-0.14.1-macos.tar.gz
 tar -xzf axym-tui.tar.gz && ./axym-tui-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.13.0` tag rather than
+> TUI links are pinned to the `tui-v0.14.1` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
@@ -114,8 +133,10 @@ tar -xzf axym-tui.tar.gz && ./axym-tui-macos-arm64 --version
 `release-manifest.json` carrying the product, version, source commit, and
 per-artifact hashes.
 
-**Windows** — extract the zip and run `axym-tui-windows-x86_64.exe`
-from PowerShell or `cmd`.
+**Windows** — extract the zip and run `axym-tui-windows-x86_64.exe` from
+PowerShell or `cmd`. `axym-tui-windows-x86_64.exe --install` copies it to
+`%LOCALAPPDATA%\Axym\bin\axym-tui.exe` and tells you if that's not on your
+`PATH` yet (requires 0.14.1+ — earlier versions failed this step outright).
 
 ### TUI prerequisite: an agent CLI
 
