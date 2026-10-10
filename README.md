@@ -20,9 +20,25 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.14.1` | [tui-v0.14.1](../../releases/tag/tui-v0.14.1) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.14.3` | [tui-v0.14.3](../../releases/tag/tui-v0.14.3) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.11.0` | [desktop-v12.11.0](../../releases/tag/desktop-v12.11.0) · [all desktop releases](../../releases?q=desktop-v) |
 
+> **New in TUI 0.14.3** — Google's Antigravity CLI joins the provider roster:
+> install `agy`, authenticate once, and drive it with
+> `axym --provider antigravity` (or `--provider agy`) — model listing
+> (`axym models antigravity`), `--conversation` resume, and per-mode
+> permissions (`--mode plan`, yolo via `--dangerously-skip-permissions`)
+> all work. Also: OpenCode 2.x compatibility (model selection and run flags
+> follow the 2.x CLI), and atomic writes for the allowlist, init file, and
+> saved workflows, so a crash can never leave a half-written config.
+>
+> **New in TUI 0.14.2** — the binaries are renamed from `axym-tui-*` to
+> `axym-*` (`axym-macos-arm64`, `axym-linux-x86_64`,
+> `axym-windows-x86_64.exe`), and the Windows standalone executable
+> actually runs now — previously every invocation silently did nothing
+> because the entry-point check never matched under `bun build --compile`
+> on Windows.
+>
 > **New in TUI 0.14.1** — `--install` was completely broken on Windows (and
 > on any standalone binary): it always tried to wrap a `dist/axym-tui.mjs`
 > bundle that doesn't exist next to a compiled standalone executable, so it
@@ -99,31 +115,31 @@ front door: grab the latest builds below, no account or build tools needed.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.14.1`):
+Pick the file for your platform (`<v>` = version, e.g. `0.14.3`):
 
 | File | Platform |
 |---|---|
-| `axym-tui-<v>-macos.tar.gz` | macOS — contains both Apple Silicon (`-arm64`) and Intel (`-x64`) binaries |
-| `axym-tui-<v>-linux-x86_64.tar.gz` | Linux x86_64 |
-| `axym-tui-<v>-windows-x86_64.zip` | Windows x86_64 |
+| `axym-<v>-macos.tar.gz` | macOS — contains both Apple Silicon (`axym-macos-arm64`) and Intel (`axym-macos-x64`) binaries |
+| `axym-<v>-linux-x86_64.tar.gz` | Linux x86_64 (`axym-linux-x86_64`) |
+| `axym-<v>-windows-x86_64.zip` | Windows x86_64 (`axym-windows-x86_64.exe`) |
 
 **macOS / Linux**
 
 ```sh
-tar -xzf axym-tui-<v>-macos.tar.gz        # or the linux tarball
-./axym-tui-macos-arm64 --version          # Apple Silicon (use -x64 on Intel, no suffix juggling on Linux)
-./axym-tui-macos-arm64 --install          # optional: copy to ~/.local/bin + install the man page
+tar -xzf axym-<v>-macos.tar.gz        # or the linux tarball
+./axym-macos-arm64 --version          # Apple Silicon (use -x64 on Intel, no suffix juggling on Linux)
+./axym-macos-arm64 --install          # optional: copy to ~/.local/bin + install the man page
 ```
 
 Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym-tui.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.14.1/axym-tui-0.14.1-macos.tar.gz
-tar -xzf axym-tui.tar.gz && ./axym-tui-macos-arm64 --version
+curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.14.3/axym-0.14.3-macos.tar.gz
+tar -xzf axym.tar.gz && ./axym-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.14.1` tag rather than
+> TUI links are pinned to the `tui-v0.14.3` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
@@ -133,9 +149,9 @@ tar -xzf axym-tui.tar.gz && ./axym-tui-macos-arm64 --version
 `release-manifest.json` carrying the product, version, source commit, and
 per-artifact hashes.
 
-**Windows** — extract the zip and run `axym-tui-windows-x86_64.exe` from
-PowerShell or `cmd`. `axym-tui-windows-x86_64.exe --install` copies it to
-`%LOCALAPPDATA%\Axym\bin\axym-tui.exe` and tells you if that's not on your
+**Windows** — extract the zip and run `axym-windows-x86_64.exe` from
+PowerShell or `cmd`. `axym-windows-x86_64.exe --install` copies it to
+`%LOCALAPPDATA%\Axym\bin\axym.exe` and tells you if that's not on your
 `PATH` yet (requires 0.14.1+ — earlier versions failed this step outright).
 
 ### TUI prerequisite: an agent CLI
@@ -145,7 +161,7 @@ Install **at least one** of these first and make sure it's on your `PATH`
 (check with e.g. `which claude`):
 
 - `claude` (Claude Code) · `opencode` · `codex` · `gemini`
-- `cursor-agent` (Cursor) · `copilot` (GitHub Copilot CLI)
+- `cursor-agent` (Cursor) · `copilot` (GitHub Copilot CLI) · `agy` (Google Antigravity)
 
 With none installed the TUI starts but cannot act. Inside the TUI,
 `/doctor` diagnoses your environment (found providers, auth state, PATH).
@@ -153,14 +169,14 @@ With none installed the TUI starts but cannot act. Inside the TUI,
 ### TUI first run
 
 ```sh
-axym-tui                                # interactive session in the current project
-axym-tui --provider claude --mode plan  # explicit provider + read-only mode
-axym-tui -p "summarize uncommitted changes"   # headless, for scripts and CI
-axym-tui web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
+axym                                # interactive session in the current project
+axym --provider claude --mode plan  # explicit provider + read-only mode
+axym -p "summarize uncommitted changes"   # headless, for scripts and CI
+axym web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
 ```
 
 > **macOS Gatekeeper:** the binaries are unsigned, so macOS may block the
-> first launch. Run `xattr -d com.apple.quarantine axym-tui-macos-arm64`
+> first launch. Run `xattr -d com.apple.quarantine axym-macos-arm64`
 > (or `-x64`) once and you're set.
 
 ## Axym Desktop — install
@@ -219,7 +235,7 @@ nothing extra to install on a normal up-to-date system.
 - **Desktop (macOS, AppImage):** the app checks for updates itself and
   offers one-click install + relaunch. `.deb` / `.rpm` users can also just
   install the newer package over the old one.
-- **TUI:** `/update` inside the TUI (or `axym-tui --update`) downloads the
+- **TUI:** `/update` inside the TUI (or `axym --update`) downloads the
   latest release, verifies its SHA-256, and installs in place.
 
 ## Requirements at a glance
