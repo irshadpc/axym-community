@@ -21,7 +21,7 @@ front door: grab the latest builds below, no account or build tools needed.
 | Product | Current version | Get it |
 |---|---|---|
 | Axym TUI | `0.14.3` | [tui-v0.14.3](../../releases/tag/tui-v0.14.3) · [all TUI releases](../../releases?q=tui-v) |
-| Axym Desktop | `12.11.0` | [desktop-v12.11.0](../../releases/tag/desktop-v12.11.0) · [all desktop releases](../../releases?q=desktop-v) |
+| Axym Desktop | `12.11.2` | [desktop-v12.11.2](../../releases/tag/desktop-v12.11.2) · [all desktop releases](../../releases?q=desktop-v) |
 
 > **New in TUI 0.14.3** — Google's Antigravity CLI joins the provider roster:
 > install `agy`, authenticate once, and drive it with
@@ -90,6 +90,16 @@ front door: grab the latest builds below, no account or build tools needed.
 > workspaces. Background workers (`/bg:tests`) now stream live output:
 > `/status` shows the command, elapsed time, and tail; the status bar shows a
 > `⏳ bg:` timer.
+>
+> **New in Desktop 12.11.2** — Google's Antigravity CLI (`agy`) joins the
+> provider roster on the desktop too: the pipeline and embedded TUI drive
+> it natively (stdin transport, stream-json parsing with token usage,
+> `--conversation` resume, `agy models` inventory). Also folds in the
+> 12.11.1 routing hardening (atomic exploration-slot reservation, daily
+> cap enforcement) — 12.11.1 was superseded before publish, so 12.11.2 is
+> the first desktop release after 12.11.0. Every platform artifact was
+> tested before publish: Linux suite + smoke in Docker, Windows exe under
+> Wine, macOS DMG built and verified on Intel.
 >
 > **New in Desktop 12.11.0** — shipped alongside TUI 0.12.0 (the TUI has since
 > moved to 0.13.0); this cycle's user-facing features land in the TUI, plus a
@@ -190,11 +200,11 @@ axym web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
 | `axym-<v>-linux-x86_64.tar.gz` | Linux — portable, just the binary |
 | `axym-<v>-windows-x86_64.zip` | Windows — portable (`axym.exe` + WebView2 loader) |
 
-> **12.11.0 Linux packaging:** this release was built on macOS, so it ships the
+> **12.11.2 Linux packaging:** this release was built on macOS, so it ships the
 > macOS universal `.dmg`, the Linux **portable tarball**, and the Windows zip.
 > The Linux `.deb` / `.AppImage` / `.rpm` installers are produced on a Linux
 > build host — the newest of those on this page are `12.8.0`. Grab the tarball
-> below if you want 12.11.0 on Linux today; it needs no installer.
+> below if you want 12.11.2 on Linux today; it needs no installer.
 
 **macOS** — open the `.dmg` and drag Axym to Applications, or:
 
@@ -210,7 +220,7 @@ curl -fsSL https://github.com/irshadpc/axym-community/releases/latest/download/i
 
 ```sh
 # portable tarball — works on any x86_64 distro, nothing to install
-curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.11.0/axym-12.11.0-linux-x86_64.tar.gz
+curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.11.2/axym-12.11.2-linux-x86_64.tar.gz
 tar -xzf axym-linux.tar.gz
 ./axym-linux/axym                  # or ./axym-linux/install.sh
 
