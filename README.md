@@ -23,110 +23,18 @@ front door: grab the latest builds below, no account or build tools needed.
 | Axym TUI | `0.14.4` | [tui-v0.14.4](../../releases/tag/tui-v0.14.4) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.11.2` | [desktop-v12.11.2](../../releases/tag/desktop-v12.11.2) · [all desktop releases](../../releases?q=desktop-v) |
 
-> **New in TUI 0.14.4** — the Antigravity-release companion to Desktop
-> 12.11.2, cut so both products carry the integration in one cycle. The
-> TUI itself is unchanged from 0.14.3 (which introduced the Antigravity
-> provider below) apart from the version.
->
-> **New in TUI 0.14.3** — Google's Antigravity CLI joins the provider roster:
-> install `agy`, authenticate once, and drive it with
-> `axym --provider antigravity` (or `--provider agy`) — model listing
-> (`axym models antigravity`), `--conversation` resume, and per-mode
-> permissions (`--mode plan`, yolo via `--dangerously-skip-permissions`)
-> all work. Also: OpenCode 2.x compatibility (model selection and run flags
-> follow the 2.x CLI), and atomic writes for the allowlist, init file, and
-> saved workflows, so a crash can never leave a half-written config.
->
-> **New in TUI 0.14.2** — the binaries are renamed from `axym-tui-*` to
-> `axym-*` (`axym-macos-arm64`, `axym-linux-x86_64`,
-> `axym-windows-x86_64.exe`), and the Windows standalone executable
-> actually runs now — previously every invocation silently did nothing
-> because the entry-point check never matched under `bun build --compile`
-> on Windows.
->
-> **New in TUI 0.14.1** — `--install` was completely broken on Windows (and
-> on any standalone binary): it always tried to wrap a `dist/axym-tui.mjs`
-> bundle that doesn't exist next to a compiled standalone executable, so it
-> failed outright with "TUI bundle not found." Fixed to copy the running
-> binary directly when no bundle is present — Windows installs now land at
-> `%LOCALAPPDATA%\Axym\bin\axym-tui.exe` with a correct `PATH` check.
->
-> **New in TUI 0.14.0** — custom workflows: `/workflow new <name>` opens
-> your editor on a plain-text template (steps separated by a lone `---`
-> line, optional `{goal}` placeholder); `/workflow save <name>` turns a
-> conversation you already had into a reusable one; `/workflow run <name>
-> [goal]` replays it on any provider, one step per turn, so later steps see
-> earlier real output as context. Three starters ship pre-seeded
-> (`engineer-flow`, `product-discovery`, `security-review`). Also: a fix for
-> axym-runtime silently invoking codex instead of Claude, live per-stage
-> axym-runtime progress, provider failover on untagged ACP stops, and a
-> fix for `/compact`/`/new`/`/clear` silently clearing the visible
-> transcript.
->
-> **Earlier in TUI 0.13.0** — Claude Code-grade input editing plus a
-> process-lifetime correctness series. Bracketed paste is never
-> re-interpreted as keystrokes (long pastes collapse to `[Pasted text #n]`
-> chips, expanded on submit); image attachments ride along as `[Image #n]`
-> chips from drag-drop, clipboard, or a pasted file path (attachability is
-> sniffed by magic bytes, not extension); `/copy` grabs the last response
-> over OSC 52 so it works over SSH and tmux; ctrl+g / ctrl+x ctrl+e compose
-> the prompt in `$VISUAL`/`$EDITOR`; `/vim` gives a persistent vim editing
-> mode. Tool rows now render as colored pill badges (`BASH [git log --oneline]`)
-> whose background turns red once a call fails, with descriptive labels for
-> every backend. The C-01…C-10 fixes mean nothing is auto-approved in your
-> name, streaming text is never reordered or dropped, finished turns hit
-> disk immediately, and every child process, wake lock, and public tunnel
-> the TUI starts dies with it — a cancelled background command stops its
-> whole process tree. Releases are now gated on a real-pty end-to-end run of
-> the shipped binary before they publish.
->
-> **New in TUI 0.12.1** — a `--yolo` session now says so: a sticky flag on the
-> session record means a resumed or exported transcript still shows that every
-> tool-call and git-write approval gate was disabled for part of the run
-> (`**--yolo was active**` in the transcript export). Headless runs are
-> cancellable too — an interrupted `axym-tui -p` run exits `130` with
-> `✗ interrupted` instead of hanging, and never reports success for a
-> half-finished turn.
->
-> **New in TUI 0.12.0** — `--yolo` (alias `--dangerously-skip-permissions`)
-> turns off every approval prompt for the session: the host tool-call gate,
-> git writes, and the provider's own permission prompts. It implies
-> `--mode auto` and **has no undo** — use it in disposable or fully-trusted
-> workspaces. Background workers (`/bg:tests`) now stream live output:
-> `/status` shows the command, elapsed time, and tail; the status bar shows a
-> `⏳ bg:` timer.
->
-> **New in Desktop 12.11.2** — Google's Antigravity CLI (`agy`) joins the
-> provider roster on the desktop too: the pipeline and embedded TUI drive
-> it natively (stdin transport, stream-json parsing with token usage,
-> `--conversation` resume, `agy models` inventory). Also folds in the
-> 12.11.1 routing hardening (atomic exploration-slot reservation, daily
-> cap enforcement) — 12.11.1 was superseded before publish, so 12.11.2 is
-> the first desktop release after 12.11.0. Every platform artifact was
-> tested before publish: Linux suite + smoke in Docker, Windows exe under
-> Wine, macOS DMG built and verified on Intel.
->
-> **New in Desktop 12.11.0** — shipped alongside TUI 0.12.0 (the TUI has since
-> moved to 0.13.0); this cycle's user-facing features land in the TUI, plus a
-> scroll-UX rework of the legacy Python dashboard (sticky headers,
-> scroll-preserving refresh, back-to-top).
->
-> **Earlier in TUI 0.7–0.11** — real terminal scrollback (full history, sticky
-> input); TodoWrite renders as a live checklist; LLM council (`/council`)
-> gets parallel multi-provider review with merged output; ACP on by
-> default; uniform approval gate with per-tool always-allow that persists;
-> per-provider image gating; git permissions + `/pull`; stall watchdog and
-> long-session OOM fix; model selection forwarded to ACP providers.
-> Still here from 0.6.0: `axym-tui web` phone pairing over QR (live
-> transcript, approvals, optional Cloudflare tunnel), wake-lock unattended
-> runs with ntfy push, and quota-aware provider failover with cooldowns
-> and circuit breaker.
->
-> **Earlier in Desktop** — 12.10.0 Engineering Advisor (adaptive health model,
-> priorities, Mission Control panel); 12.8.0 agent provider layer (Copilot +
-> Cursor in the registry, ACP transport, `/doctor` diagnostics), TUI parity,
-> multimodal input, and quota-aware failover that rides out session-limit
-> walls instead of retrying into them.
+## What's new
+
+**TUI 0.14.4 / Desktop 12.11.2 — Antigravity integration.** Google's
+Antigravity CLI (`agy`) joins the provider roster in both products:
+`axym --provider antigravity` in the TUI, native pipeline dispatch in the
+desktop. `agy models` inventory, `--conversation` resume, and stream-json
+token usage all work. Desktop 12.11.2 also folds in adaptive-router
+hardening (atomic exploration-slot reservation, daily-cap enforcement).
+Binaries are named `axym-*` since 0.14.2.
+
+Full changelogs for every prior version ship with
+[each release](../../releases) — this page only covers the current one.
 
 ## Axym TUI — install
 
@@ -167,7 +75,7 @@ per-artifact hashes.
 **Windows** — extract the zip and run `axym-windows-x86_64.exe` from
 PowerShell or `cmd`. `axym-windows-x86_64.exe --install` copies it to
 `%LOCALAPPDATA%\Axym\bin\axym.exe` and tells you if that's not on your
-`PATH` yet (requires 0.14.1+ — earlier versions failed this step outright).
+`PATH` yet.
 
 ### TUI prerequisite: an agent CLI
 
