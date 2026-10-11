@@ -20,9 +20,14 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.14.3` | [tui-v0.14.3](../../releases/tag/tui-v0.14.3) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.14.4` | [tui-v0.14.4](../../releases/tag/tui-v0.14.4) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.11.2` | [desktop-v12.11.2](../../releases/tag/desktop-v12.11.2) · [all desktop releases](../../releases?q=desktop-v) |
 
+> **New in TUI 0.14.4** — the Antigravity-release companion to Desktop
+> 12.11.2, cut so both products carry the integration in one cycle. The
+> TUI itself is unchanged from 0.14.3 (which introduced the Antigravity
+> provider below) apart from the version.
+>
 > **New in TUI 0.14.3** — Google's Antigravity CLI joins the provider roster:
 > install `agy`, authenticate once, and drive it with
 > `axym --provider antigravity` (or `--provider agy`) — model listing
@@ -125,7 +130,7 @@ front door: grab the latest builds below, no account or build tools needed.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.14.3`):
+Pick the file for your platform (`<v>` = version, e.g. `0.14.4`):
 
 | File | Platform |
 |---|---|
@@ -145,11 +150,11 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.14.3/axym-0.14.3-macos.tar.gz
+curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.14.4/axym-0.14.4-macos.tar.gz
 tar -xzf axym.tar.gz && ./axym-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.14.3` tag rather than
+> TUI links are pinned to the `tui-v0.14.4` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
