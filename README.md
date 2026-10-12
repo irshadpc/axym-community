@@ -20,25 +20,34 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.14.4` | [tui-v0.14.4](../../releases/tag/tui-v0.14.4) · [all TUI releases](../../releases?q=tui-v) |
-| Axym Desktop | `12.11.2` | [desktop-v12.11.2](../../releases/tag/desktop-v12.11.2) · [all desktop releases](../../releases?q=desktop-v) |
+| Axym TUI | `0.15.0` | [tui-v0.15.0](../../releases/tag/tui-v0.15.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym Desktop | `12.12.0` | [desktop-v12.12.0](../../releases/tag/desktop-v12.12.0) · [all desktop releases](../../releases?q=desktop-v) |
 
 ## What's new
 
-**TUI 0.14.4 / Desktop 12.11.2 — Antigravity integration.** Google's
-Antigravity CLI (`agy`) joins the provider roster in both products:
-`axym --provider antigravity` in the TUI, native pipeline dispatch in the
-desktop. `agy models` inventory, `--conversation` resume, and stream-json
-token usage all work. Desktop 12.11.2 also folds in adaptive-router
-hardening (atomic exploration-slot reservation, daily-cap enforcement).
-Binaries are named `axym-*` since 0.14.2.
+**TUI 0.15.0 / Desktop 12.12.0 — fail-closed reliability.** No new
+features; Axym now reports the truth about every turn and repairs provider
+integrations that upstream CLI changes had broken:
+
+- A provider that crashes, is killed, or stops mid-stream is reported as an
+  error, never as a successful (empty) answer. A success followed by an
+  abnormal exit keeps the answer and shows a warning.
+- No more lost or hung turns: the first Claude turn after a model change,
+  runtime events that race a submit, and a crashed ACP agent all recover.
+- **codex** auto mode works again (codex removed `--full-auto`), and resumed
+  codex turns work in the desktop app. **copilot** failure reasons such as
+  an exhausted quota are shown and trigger failover.
+- Headless `axym -p` prints the provider's failure reason instead of exiting
+  silently (`--format json` adds `outcome.error` / `outcome.warning`).
+- Desktop runtime: a run that was supposed to change code but wrote nothing
+  is no longer accepted as complete.
 
 Full changelogs for every prior version ship with
 [each release](../../releases) — this page only covers the current one.
 
 ## Axym TUI — install
 
-Pick the file for your platform (`<v>` = version, e.g. `0.14.4`):
+Pick the file for your platform (`<v>` = version, e.g. `0.15.0`):
 
 | File | Platform |
 |---|---|
@@ -58,11 +67,11 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.14.4/axym-0.14.4-macos.tar.gz
+curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.15.0/axym-0.15.0-macos.tar.gz
 tar -xzf axym.tar.gz && ./axym-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.14.4` tag rather than
+> TUI links are pinned to the `tui-v0.15.0` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
@@ -113,11 +122,11 @@ axym web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
 | `axym-<v>-linux-x86_64.tar.gz` | Linux — portable, just the binary |
 | `axym-<v>-windows-x86_64.zip` | Windows — portable (`axym.exe` + WebView2 loader) |
 
-> **12.11.2 Linux packaging:** this release was built on macOS, so it ships the
+> **12.12.0 Linux packaging:** this release was built on macOS, so it ships the
 > macOS universal `.dmg`, the Linux **portable tarball**, and the Windows zip.
 > The Linux `.deb` / `.AppImage` / `.rpm` installers are produced on a Linux
 > build host — the newest of those on this page are `12.8.0`. Grab the tarball
-> below if you want 12.11.2 on Linux today; it needs no installer.
+> below if you want 12.12.0 on Linux today; it needs no installer.
 
 **macOS** — open the `.dmg` and drag Axym to Applications, or:
 
@@ -133,7 +142,7 @@ curl -fsSL https://github.com/irshadpc/axym-community/releases/latest/download/i
 
 ```sh
 # portable tarball — works on any x86_64 distro, nothing to install
-curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.11.2/axym-12.11.2-linux-x86_64.tar.gz
+curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.12.0/axym-12.12.0-linux-x86_64.tar.gz
 tar -xzf axym-linux.tar.gz
 ./axym-linux/axym                  # or ./axym-linux/install.sh
 
@@ -144,6 +153,11 @@ sudo apt install ./Axym_12.8.0_amd64.deb        # or: sudo dnf install ./Axym-12
 
 > The AppImage needs FUSE to run. On Ubuntu 22.04+ install it first:
 > `sudo apt install libfuse2`.
+
+> The desktop app needs the system-tray library and exits at launch without
+> it. Desktop Ubuntu already has it; on minimal/server images install it
+> first: `sudo apt install libayatana-appindicator3-1` (Fedora:
+> `sudo dnf install libayatana-appindicator-gtk3`).
 
 **Windows** — extract the zip and run `axym.exe`. It needs the
 WebView2 runtime, which ships with Windows 10 (1803+) and Windows 11 —
