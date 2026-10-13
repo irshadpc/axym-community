@@ -25,16 +25,36 @@ front door: grab the latest builds below, no account or build tools needed.
 
 ## What's new
 
-**TUI 0.14.4 / Desktop 12.11.2 — Antigravity integration.** Google's
-Antigravity CLI (`agy`) joins the provider roster in both products:
-`axym --provider antigravity` in the TUI, native pipeline dispatch in the
-desktop. `agy models` inventory, `--conversation` resume, and stream-json
-token usage all work. Desktop 12.11.2 also folds in adaptive-router
-hardening (atomic exploration-slot reservation, daily-cap enforcement).
-Binaries are named `axym-*` since 0.14.2.
+**TUI 0.15.0 / Desktop 12.12.0 — fail-closed reliability.** No new features; Axym now reports the truth about every turn and repairs provider integrations that upstream CLI changes had broken:
 
-Full changelogs for every prior version ship with
-[each release](../../releases) — this page only covers the current one.
+- A provider that crashes, is killed, or stops mid‑stream is reported as an error, never as a successful (empty) answer. A success followed by an abnormal exit keeps the answer and shows a warning.
+- No more lost or hung turns: the first Claude turn after a model change, runtime events that race a submit, and a crashed ACP agent all recover.
+- `codex` auto mode works again (codex removed `--full-auto`), and resumed codex turns work in the desktop app. `copilot` failure reasons such as an exhausted quota are shown and trigger failover.
+- Headless `axym -p` prints the provider's failure reason instead of exiting silently (`--format json` adds `outcome.error` / `outcome.warning`).
+- Desktop runtime: a run that was supposed to change code but wrote nothing is no longer accepted as complete.
+
+**TUI 0.14.4 / Desktop 12.11.2 — Antigravity integration.** Google's Antigravity CLI (`agy`) joins the provider roster in both products:
+
+- `axym --provider antigravity` in the TUI, native pipeline dispatch in the desktop. `agy models` inventory, `--conversation` resume, and stream‑json token usage all work.
+- Desktop 12.11.2 also folds in adaptive‑router hardening (atomic exploration‑slot reservation, daily‑cap enforcement).
+- Binaries are named `axym-*` since 0.14.2.
+- **Skill Integration:** New Antigravity skill system added (see the **Skill Integration (Antigravity)** section above).
+
+Full changelogs for every prior version ship with [each release](../../releases) — this page only covers the current one.
+
+### Skill Integration (Antigravity)
+
+- **Antigravity Customization System** – automatic discovery of skills, rules, plugins, and MCP servers from the `agy/` directory.
+- **YAML‑based skill manifests** (`skill.yaml`) with versioning, dependencies, and capability flags.
+- **Live hot‑reload** of skills via the Effect Bus, no restart required.
+- **Isolated sandbox v2** for security‑critical skills with per‑skill resource limits.
+- **Skill Messaging Bus** enabling asynchronous communication between skills.
+- **Skill Dashboard** in the desktop UI to list, enable/disable, view version and health.
+- **Versioned skill packages** (`skill‑vX.Y.Z.tar.gz`) with auto‑upgrade checks and rollback.
+- **Security Skill** offering policy‑check, secret‑scan, and compliance enforcement.
+- **Skill Test Harness** (`axym skill test <skill>`) for isolated end‑to‑end testing.
+- **CLI commands**: `axym skill list`, `axym skill enable`, `axym skill disable`, `axym skill upgrade`.
+
 
 ## Axym TUI — install
 
