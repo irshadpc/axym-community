@@ -20,11 +20,17 @@ front door: grab the latest builds below, no account or build tools needed.
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.15.0` | [tui-v0.15.0](../../releases/tag/tui-v0.15.0) · [all TUI releases](../../releases?q=tui-v) |
-| Axym Desktop | `12.12.0` | [desktop-v12.12.0](../../releases/tag/desktop-v12.12.0) · [all desktop releases](../../releases?q=desktop-v) |
+| Axym TUI | `0.16.0` | [tui-v0.16.0](../../releases/tag/tui-v0.16.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym Desktop | `12.13.0` | [desktop-v12.13.0](../../releases/tag/desktop-v12.13.0) · [all desktop releases](../../releases?q=desktop-v) |
 
 ## What's new
 
+**TUI 0.16.0 / Desktop 12.13.0 — Universal Feature Excellence & Role-Adaptive Workspaces.**
+- **Universal Feature Excellence:** All core system capabilities (execution, governance, role workspaces, mission control, continuity handoff) verified with executable measurements, regression suites, and 0 contract drift.
+- **Role-Adaptive Activities:** Designer (`interface-design`) and QA (`qa-validation`) native activities added alongside Developer, Product Manager, Architect, and Lead workflows with role-specific intent lenses, live verification gates, and artifact generation.
+- **WCAG 2.2 AA Contrast Compliance:** Contrast ratios across all interactive elements, status badges, and typography hardened to meet and exceed 4.5:1 / 3:1 WCAG AA standards in both dark and light modes.
+- **TUI Command Segregation:** Dedicated `/help` categories and command segregation for faster, zero-confusion terminal navigation.
+- **External Git Drift & Continuity:** Full bi-directional drift reconciliation preventing stale state overwrites when resuming work across IDEs, external CLI agents, or restarts.
 
 **TUI 0.15.0 / Desktop 12.12.0 — fail-closed reliability.** No new features; Axym now reports the truth about every turn and repairs provider integrations that upstream CLI changes had broken:
 
@@ -80,11 +86,11 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.15.0/axym-0.15.0-macos.tar.gz
+curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.16.0/axym-0.16.0-macos.tar.gz
 tar -xzf axym.tar.gz && ./axym-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.15.0` tag rather than
+> TUI links are pinned to the `tui-v0.16.0` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
@@ -135,11 +141,11 @@ axym web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
 | `axym-<v>-linux-x86_64.tar.gz` | Linux — portable, just the binary |
 | `axym-<v>-windows-x86_64.zip` | Windows — portable (`axym.exe` + WebView2 loader) |
 
-> **12.12.0 Linux packaging:** this release was built on macOS, so it ships the
+> **12.13.0 Linux packaging:** this release was built on macOS, so it ships the
 > macOS universal `.dmg`, the Linux **portable tarball**, and the Windows zip.
 > The Linux `.deb` / `.AppImage` / `.rpm` installers are produced on a Linux
 > build host — the newest of those on this page are `12.8.0`. Grab the tarball
-> below if you want 12.12.0 on Linux today; it needs no installer.
+> below if you want 12.13.0 on Linux today; it needs no installer.
 
 **macOS** — open the `.dmg` and drag Axym to Applications, or:
 
@@ -155,7 +161,7 @@ curl -fsSL https://github.com/irshadpc/axym-community/releases/latest/download/i
 
 ```sh
 # portable tarball — works on any x86_64 distro, nothing to install
-curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.12.0/axym-12.12.0-linux-x86_64.tar.gz
+curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.13.0/axym-12.13.0-linux-x86_64.tar.gz
 tar -xzf axym-linux.tar.gz
 ./axym-linux/axym                  # or ./axym-linux/install.sh
 
