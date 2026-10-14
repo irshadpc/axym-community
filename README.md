@@ -1,7 +1,10 @@
 # Axym — downloads for the TUI and desktop app
 
-Axym is a terminal-first AI engineering assistant. This repo is the public
-front door: grab the latest builds below, no account or build tools needed.
+Axym is an autonomous engineering assistant that takes a plain-English goal and produces reviewed, tested, and committed code. This repo is the public distribution gateway: grab the latest builds below, no account or build tools needed.
+
+[![Releases](https://img.shields.io/github/v/release/irshadpc/axym-community?label=latest%20release&color=blue)](https://github.com/irshadpc/axym-community/releases)
+[![Source Code](https://img.shields.io/badge/source-irshadpc%2Faxym-black.svg)](https://github.com/irshadpc/axym)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/irshadpc/axym/blob/main/LICENSE)
 
 - **Axym TUI** — a standalone terminal agent. Single-file executables, no
   Node.js or runtime to install. It drives the AI coding CLIs you already
@@ -11,10 +14,10 @@ front door: grab the latest builds below, no account or build tools needed.
   control, security review, and an embedded terminal) with automatic
   in-app updates.
 
-> Looking for the source or want to report a bug? You're in the right
-> place — use [Issues](../../issues) for bugs, crashes, and feature
-> requests. Everything downloadable lives under
-> [Releases](../../releases).
+> Looking for the full source code or documentation? See the main codebase at
+> [github.com/irshadpc/axym](https://github.com/irshadpc/axym).
+> To report bugs, crashes, or installer issues, use [Issues](../../issues).
+> Everything downloadable lives under [Releases](../../releases).
 
 ## Download
 
@@ -62,7 +65,32 @@ Full changelogs for every prior version ship with [each release](../../releases)
 - **Skill Test Harness** (`axym skill test <skill>`) for isolated end‑to‑end testing.
 - **CLI commands**: `axym skill list`, `axym skill enable`, `axym skill disable`, `axym skill upgrade`.
 
+---
 
+## 🧭 How to Explore Features & Details
+
+Axym uses a **progressive disclosure** model so you can discover capabilities directly inside your workflow:
+
+### 1. In-Product Discovery (Terminal TUI)
+- **Built-in Manual (`axym --man`)**: View the complete user manual, command reference, and keybindings directly in your terminal pager.
+- **Environment Doctor (`axym --doctor`)**: Run diagnostics on detected AI providers, binary paths, permissions, and tool admission policies.
+- **Interactive Slash Commands (`/`)**: Type `/` to access workflows with instant tab-completion:
+  - `/review` and `/qa` — run automated code quality and test-coverage passes.
+  - `/security` (alias `/audit`) — run threat modeling and evidence-grounded vulnerability scanning.
+  - `/priority` — inspect active AI provider resolution order and failover precedence.
+  - `/workflow run <name>` — execute structured templates (`engineer-flow`, `product-discovery`, `security-review`).
+  - `/skills` — list and toggle Antigravity skills.
+  - `/vim` and `ctrl+g` — toggle persistent Vim keybindings or open prompt in your external `$EDITOR`.
+  - `/copy` — copy the last response or turn to system clipboard over OSC 52.
+- **`axym web`**: Scan the terminal QR code from your phone to monitor runs, approve actions, or review diffs remotely.
+
+### 2. In-Product Discovery (Desktop App)
+- **Role-Adaptive Workspaces**: Switch intent lenses between Developer, Product Manager, Architect, Designer, and QA.
+- **Interactive Pipeline DAG**: Watch goals progress through Planner → Designer → Coder → Review → Security → QA in real-time.
+- **Audit & Approval Gates**: Inspect file diffs and tool execution requests before permitting changes to your working tree.
+- **Offline Documentation**: Open `PROJECT.html` in your browser for the full 74-page offline engineering reference portal.
+
+---
 
 ## Axym TUI — install
 
