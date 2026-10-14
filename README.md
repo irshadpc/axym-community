@@ -23,10 +23,21 @@ Axym is an autonomous engineering assistant that takes a plain-English goal and 
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.16.0` | [tui-v0.16.0](../../releases/tag/tui-v0.16.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym TUI | `0.16.1` | [tui-v0.16.1](../../releases/tag/tui-v0.16.1) · [all TUI releases](../../releases?q=tui-v) |
 | Axym Desktop | `12.13.0` | [desktop-v12.13.0](../../releases/tag/desktop-v12.13.0) · [all desktop releases](../../releases?q=desktop-v) |
 
 ## What's new
+
+**TUI 0.16.1 — reliability release, no new features.**
+- Fixed a rendering bug where the Sessions, Resume session, Find-in-chat, and
+  Jump-to-turn screens could garble the terminal display (wrapped borders,
+  overwritten rows) when a session title or search result was long.
+- Agent processes, the runtime connection, and public tunnels no longer get
+  left running in the background after the TUI closes on Windows (already
+  fixed on macOS/Linux) — verified via an automated test; a live Windows
+  machine confirmation is still pending.
+- Verified the "keep awake while working" behavior for real on Linux: the
+  system no longer stays awake after Axym exits or crashes.
 
 **TUI 0.16.0 / Desktop 12.13.0 — Universal Feature Excellence & Role-Adaptive Workspaces.**
 - **Universal Feature Excellence:** All core system capabilities (execution, governance, role workspaces, mission control, continuity handoff) verified with executable measurements, regression suites, and 0 contract drift.
@@ -114,11 +125,11 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.16.0/axym-0.16.0-macos.tar.gz
+curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.16.1/axym-0.16.1-macos.tar.gz
 tar -xzf axym.tar.gz && ./axym-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.16.0` tag rather than
+> TUI links are pinned to the `tui-v0.16.1` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
