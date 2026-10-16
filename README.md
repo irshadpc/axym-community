@@ -23,10 +23,18 @@ Axym is an autonomous engineering assistant that takes a plain-English goal and 
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.16.1` | [tui-v0.16.1](../../releases/tag/tui-v0.16.1) · [all TUI releases](../../releases?q=tui-v) |
-| Axym Desktop | `12.13.0` | [desktop-v12.13.0](../../releases/tag/desktop-v12.13.0) · [all desktop releases](../../releases?q=desktop-v) |
+| Axym TUI | `0.17.3` | [tui-v0.17.3](../../releases/tag/tui-v0.17.3) · [all TUI releases](../../releases?q=tui-v) |
+| Axym Desktop | `12.14.3` | [desktop-v12.14.3](../../releases/tag/desktop-v12.14.3) · [all desktop releases](../../releases?q=desktop-v) |
 
 ## What's new
+
+**TUI 0.17.3 / Desktop 12.14.3 — Security Audit Remediation & Unified Dialog Chrome.**
+- **Security Audit Remediation (F-01..F-13):** All 13 findings resolved (3 Critical, 5 High, 3 Medium, 2 Low) across the desktop Rust engine and Python workers. Closes pre-admission unsandboxed code execution, Zip-Slip, path-traversal escapes, auth bypasses, and aligns autonomous CLI coders under strict admission and staging controls. Full report: `SECURITY_AUDIT.md`.
+- **Security Workstreams & REA Investigation Adapter:** Runtime-discovered, opt-in REA investigation adapter (`AXYM_REA_BIN`) with scope-filtered untrusted evidence, persisted execution budgets (`max_steps` / `wall_clock_ms` / `max_remediation_attempts`), and operator-controlled cancellation.
+- **Read-Only CLI Commands:** Safe `axym status [run-id] [--json]` and `axym diff [run-id] [--json]` commands opening SQLite in read-only mode without taking runtime locks, running safely alongside live daemons.
+- **TUI Dialog Refactor & Determinism:** Unified dialog chrome (`ui/dialogs.tsx`) enforcing width budgets, consistent footers, and uniform selection across all overlays without Ink cursor corruption. Deterministic reaper test suite (693 passed / 0 failed).
+- **Active Project Path Indicator:** Both the TUI status bar and Desktop GoalForm now prominently display the active project directory under the input textbox.
+- **Fleet Observability & Environment Comparison:** Direct fleet monitoring via `axym fleet status` / `/fleet` and run-environment comparison via `/compare`.
 
 **TUI 0.16.1 — reliability release, no new features.**
 - Fixed a rendering bug where the Sessions, Resume session, Find-in-chat, and
@@ -125,11 +133,11 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.16.1/axym-0.16.1-macos.tar.gz
+curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.17.3/axym-0.17.3-macos.tar.gz
 tar -xzf axym.tar.gz && ./axym-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.16.1` tag rather than
+> TUI links are pinned to the `tui-v0.17.3` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
@@ -180,11 +188,11 @@ axym web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
 | `axym-<v>-linux-x86_64.tar.gz` | Linux — portable, just the binary |
 | `axym-<v>-windows-x86_64.zip` | Windows — portable (`axym.exe` + WebView2 loader) |
 
-> **12.13.0 Linux packaging:** this release was built on macOS, so it ships the
+> **12.14.3 Linux packaging:** this release was built on macOS, so it ships the
 > macOS universal `.dmg`, the Linux **portable tarball**, and the Windows zip.
 > The Linux `.deb` / `.AppImage` / `.rpm` installers are produced on a Linux
 > build host — the newest of those on this page are `12.8.0`. Grab the tarball
-> below if you want 12.13.0 on Linux today; it needs no installer.
+> below if you want 12.14.3 on Linux today; it needs no installer.
 
 **macOS** — open the `.dmg` and drag Axym to Applications, or:
 
@@ -200,7 +208,7 @@ curl -fsSL https://github.com/irshadpc/axym-community/releases/latest/download/i
 
 ```sh
 # portable tarball — works on any x86_64 distro, nothing to install
-curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.13.0/axym-12.13.0-linux-x86_64.tar.gz
+curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.14.3/axym-12.14.3-linux-x86_64.tar.gz
 tar -xzf axym-linux.tar.gz
 ./axym-linux/axym                  # or ./axym-linux/install.sh
 
