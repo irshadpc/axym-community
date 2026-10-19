@@ -14,11 +14,6 @@ Axym is an autonomous engineering assistant that takes a plain-English goal and 
   control, security review, and an embedded terminal) with automatic
   in-app updates.
 
-> Looking for the full source code or documentation? See the main codebase at
-> [github.com/irshadpc/axym](https://github.com/irshadpc/axym).
-> To report bugs, crashes, or installer issues, use [Issues](../../issues).
-> Everything downloadable lives under [Releases](../../releases).
-
 ## Download
 
 | Product | Current version | Get it |
