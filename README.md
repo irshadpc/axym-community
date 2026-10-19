@@ -23,10 +23,19 @@ Axym is an autonomous engineering assistant that takes a plain-English goal and 
 
 | Product | Current version | Get it |
 |---|---|---|
-| Axym TUI | `0.17.3` | [tui-v0.17.3](../../releases/tag/tui-v0.17.3) · [all TUI releases](../../releases?q=tui-v) |
-| Axym Desktop | `12.14.3` | [desktop-v12.14.3](../../releases/tag/desktop-v12.14.3) · [all desktop releases](../../releases?q=desktop-v) |
+| Axym TUI | `0.18.0` | [tui-v0.18.0](../../releases/tag/tui-v0.18.0) · [all TUI releases](../../releases?q=tui-v) |
+| Axym Desktop | `12.15.0` | [desktop-v12.15.0](../../releases/tag/desktop-v12.15.0) · [all desktop releases](../../releases?q=desktop-v) |
 
 ## What's new
+
+**TUI 0.18.0 / Desktop 12.15.0 — Concurrent-run safety, self-evaluating runs & run inspection.**
+- **Concurrent runs no longer kill each other:** previously, when one desktop run finished, the provider CLIs and build/test processes of every other run still in flight were terminated. Shutdown cleanup now happens once, when the app actually exits, and only for its own runs.
+- **Every run evaluates itself:** each finished run, accepted or rejected, records six outcome scores (accepted, useful, effort reduced, quality, defects prevented, maintainability) in the engineering knowledge graph automatically, and they survive graph re-ingest.
+- **Stricter QA acceptance:** a test or build check that claims to pass must be backed by the runner's real exit code (and, for tests, real output), or the run is not accepted. Projects without a test runner are judged exactly as before.
+- **Execution protocol:** `axym task …` manifests with harness-run verification, evidence pinned to a git revision, and a fail-closed completion gate; durable execution state and evidence-gated handover.
+- **Smarter runtime:** outcome-driven ambition planning, provider retries with backoff + jitter that fail closed on non-retryable errors, SQLite WAL auto-compaction with archival retention, and runtime log rotation.
+- **TUI:** `/pipeline` to inspect a run's stages, `/health` `/intel` `/settings` `/handover` overlays, `/po` (built-in Product-Owner Intelligence), and Result Ledger task summaries. Fixes: no flicker or screen clear when scrolling up mid-task, PgUp reaches a streaming turn, the slash-completion popup scrolls with the selection, and stall notices name the actual command.
+- **Desktop:** drag-and-drop into the app works again.
 
 **TUI 0.17.3 / Desktop 12.14.3 — Security Audit Remediation & Unified Dialog Chrome.**
 - **Security Audit Remediation (F-01..F-13):** All 13 findings resolved (3 Critical, 5 High, 3 Medium, 2 Low) across the desktop Rust engine and Python workers. Closes pre-admission unsandboxed code execution, Zip-Slip, path-traversal escapes, auth bypasses, and aligns autonomous CLI coders under strict admission and staging controls. Full report: `SECURITY_AUDIT.md`.
@@ -101,6 +110,8 @@ Axym uses a **progressive disclosure** model so you can discover capabilities di
   - `/skills` — list and toggle Antigravity skills.
   - `/vim` and `ctrl+g` — toggle persistent Vim keybindings or open prompt in your external `$EDITOR`.
   - `/copy` — copy the last response or turn to system clipboard over OSC 52.
+  - `/pipeline` — inspect a desktop-runtime run stage by stage; `/health`, `/intel`, `/settings`, `/handover` open their overlays.
+  - `/po` — Product-Owner Intelligence: turn a fuzzy request into an evidence-backed, scoped decision.
 - **`axym web`**: Scan the terminal QR code from your phone to monitor runs, approve actions, or review diffs remotely.
 
 ### 2. In-Product Discovery (Desktop App)
@@ -133,11 +144,11 @@ Latest direct links:
 
 ```sh
 # macOS (Apple Silicon + Intel)
-curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.17.3/axym-0.17.3-macos.tar.gz
+curl -fL -o axym.tar.gz https://github.com/irshadpc/axym-community/releases/download/tui-v0.18.0/axym-0.18.0-macos.tar.gz
 tar -xzf axym.tar.gz && ./axym-macos-arm64 --version
 ```
 
-> TUI links are pinned to the `tui-v0.17.3` tag rather than
+> TUI links are pinned to the `tui-v0.18.0` tag rather than
 > `releases/latest/download/`. GitHub allows only one *latest* release per
 > repository and that slot belongs to the desktop app — which also needs
 > `/latest/` to resolve `install-macos.sh`.
@@ -188,11 +199,11 @@ axym web --host 0.0.0.0 --pin 4821  # phone bridge: scan the QR it prints
 | `axym-<v>-linux-x86_64.tar.gz` | Linux — portable, just the binary |
 | `axym-<v>-windows-x86_64.zip` | Windows — portable (`axym.exe` + WebView2 loader) |
 
-> **12.14.3 Linux packaging:** this release was built on macOS, so it ships the
+> **12.15.0 Linux packaging:** this release was built on macOS, so it ships the
 > macOS universal `.dmg`, the Linux **portable tarball**, and the Windows zip.
 > The Linux `.deb` / `.AppImage` / `.rpm` installers are produced on a Linux
 > build host — the newest of those on this page are `12.8.0`. Grab the tarball
-> below if you want 12.14.3 on Linux today; it needs no installer.
+> below if you want 12.15.0 on Linux today; it needs no installer.
 
 **macOS** — open the `.dmg` and drag Axym to Applications, or:
 
@@ -208,7 +219,7 @@ curl -fsSL https://github.com/irshadpc/axym-community/releases/latest/download/i
 
 ```sh
 # portable tarball — works on any x86_64 distro, nothing to install
-curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.14.3/axym-12.14.3-linux-x86_64.tar.gz
+curl -fL -o axym-linux.tar.gz https://github.com/irshadpc/axym-community/releases/download/desktop-v12.15.0/axym-12.15.0-linux-x86_64.tar.gz
 tar -xzf axym-linux.tar.gz
 ./axym-linux/axym                  # or ./axym-linux/install.sh
 
@@ -235,9 +246,11 @@ nothing extra to install on a normal up-to-date system.
 
 ## Updating
 
-- **Desktop (macOS, AppImage):** the app checks for updates itself and
-  offers one-click install + relaunch. `.deb` / `.rpm` users can also just
-  install the newer package over the old one.
+- **Desktop (macOS):** the app checks for updates itself and offers
+  one-click install + relaunch.
+- **Desktop (Linux / Windows portable):** download the newer tarball or zip
+  from [Releases](../../releases) and replace the old one. `.deb` / `.rpm`
+  users can install the newer package over the old one when one is published.
 - **TUI:** `/update` inside the TUI (or `axym --update`) downloads the
   latest release, verifies its SHA-256, and installs in place.
 
@@ -247,7 +260,7 @@ nothing extra to install on a normal up-to-date system.
 |---|---|---|---|
 | TUI | One agent CLI on `PATH` (see above) | Yes | Yes — `/update` |
 | Desktop macOS | — (quarantine clear on first run) | Yes | Yes, in-app |
-| Desktop Linux AppImage | FUSE (`libfuse2` on Ubuntu 22.04+) | Yes | Yes, in-app |
+| Desktop Linux AppImage | FUSE (`libfuse2` on Ubuntu 22.04+) | Yes | Via re-download |
 | Desktop Linux deb/rpm | root for install | No | Via re-install |
 | Desktop Windows | WebView2 (built into Win 10/11) | Yes (portable) | Via re-download |
 
