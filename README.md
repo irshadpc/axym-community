@@ -6,10 +6,10 @@ An autonomous engineering assistant: give it a goal in plain English and it plan
 
 | | **Axym TUI** — terminal agent | **Axym Desktop** — full app |
 |---|---|---|
-| Version | [`0.18.0`](../../releases/tag/tui-v0.18.0) | [`12.15.0`](../../releases/tag/desktop-v12.15.0) |
-| macOS (Apple Silicon + Intel) | [axym-0.18.0-macos.tar.gz](https://github.com/irshadpc/axym-community/releases/download/tui-v0.18.0/axym-0.18.0-macos.tar.gz) | [Axym_12.15.0_universal.dmg](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.15.0/Axym_12.15.0_universal.dmg) |
-| Linux x86_64 | [axym-0.18.0-linux-x86_64.tar.gz](https://github.com/irshadpc/axym-community/releases/download/tui-v0.18.0/axym-0.18.0-linux-x86_64.tar.gz) | [axym-12.15.0-linux-x86_64.tar.gz](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.15.0/axym-12.15.0-linux-x86_64.tar.gz) |
-| Windows x86_64 | [axym-0.18.0-windows-x86_64.zip](https://github.com/irshadpc/axym-community/releases/download/tui-v0.18.0/axym-0.18.0-windows-x86_64.zip) | [axym-12.15.0-windows-x86_64.zip](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.15.0/axym-12.15.0-windows-x86_64.zip) |
+| Version | [`0.18.1`](../../releases/tag/tui-v0.18.1) | [`12.15.0`](../../releases/tag/desktop-v12.15.0) |
+| macOS (Apple Silicon + Intel) | [axym-0.18.1-macos.tar.gz](https://github.com/irshadpc/axym-community/releases/download/tui-v0.18.1/axym-0.18.1-macos.tar.gz) | [Axym_12.15.0_universal.dmg](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.15.0/Axym_12.15.0_universal.dmg) |
+| Linux x86_64 | [axym-0.18.1-linux-x86_64.tar.gz](https://github.com/irshadpc/axym-community/releases/download/tui-v0.18.1/axym-0.18.1-linux-x86_64.tar.gz) | [axym-12.15.0-linux-x86_64.tar.gz](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.15.0/axym-12.15.0-linux-x86_64.tar.gz) |
+| Windows x86_64 | [axym-0.18.1-windows-x86_64.zip](https://github.com/irshadpc/axym-community/releases/download/tui-v0.18.1/axym-0.18.1-windows-x86_64.zip) | [axym-12.15.0-windows-x86_64.zip](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.15.0/axym-12.15.0-windows-x86_64.zip) |
 
 **Which one?** The **TUI** is one standalone executable: a session UI, permission gate and headless mode built on top of the AI coding CLI you already use. The **Desktop** app runs the whole pipeline (plan → design → code → review → security → QA), with mission control, approval gates and in-app updates.
 
@@ -18,7 +18,7 @@ An autonomous engineering assistant: give it a goal in plain English and it plan
 **TUI** needs at least one agent CLI on your `PATH`: `claude`, `opencode`, `codex`, `gemini`, `cursor-agent`, `copilot`, or `agy`.
 
 ```sh
-tar -xzf axym-0.18.0-macos.tar.gz
+tar -xzf axym-0.18.1-macos.tar.gz
 ./axym-macos-arm64 --install     # Intel Mac: ./axym-macos-x64 --install
 axym                             # start a session in the current project
 ```
@@ -33,11 +33,13 @@ Linux, Windows and troubleshooting are covered in [Install details](#install-det
 
 ## New in this release
 
+- **Agent Architecture Self-Optimization (Section 6A):** Continuous architecture evaluation harness comparing coherent staged loops against multi-provider hybrids with task-flip analysis.
+- **Hardened Council Deliberation Telemetry:** Decision records now preserve full member candidates, anonymized ballots, and Borda consensus scores.
 - **Parallel runs are safe:** when one desktop run finished, it used to stop the agent processes and builds of every other run still going. That no longer happens.
 - **Every run scores itself:** each finished run records how it went (accepted, useful, quality, defects prevented and more), and QA only passes when the real test and build results back it up.
 - **TUI:** `/pipeline` shows a run stage by stage, `/po` turns a fuzzy request into a scoped decision, and there are new `/health`, `/intel` and `/settings` views.
 
-Full notes: [TUI 0.18.0](../../releases/tag/tui-v0.18.0) · [Desktop 12.15.0](../../releases/tag/desktop-v12.15.0) · [all releases](../../releases)
+Full notes: [TUI 0.18.1](../../releases/tag/tui-v0.18.1) · [Desktop 12.15.0](../../releases/tag/desktop-v12.15.0) · [all releases](../../releases)
 
 ## Install details
 
