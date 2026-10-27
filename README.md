@@ -13,15 +13,15 @@ Axym ships as two products that share one runtime:
 |---|---|---|
 | What it is | One standalone executable: a session UI, permission gate and headless mode on top of the AI coding CLI you already use | The whole pipeline (plan → design → code → review → security → QA) with mission control, approval gates and in-app updates |
 | Best for | Driving your own agent CLI (`claude`, `opencode`, `codex`, `gemini`, `cursor-agent`, `copilot`, `agy`) from a fast terminal UI | Running autonomous multi-stage engineering work end-to-end, with diffs to approve and tamper-evident run history |
-| Version | [`0.19.0`](../../releases/tag/tui-v0.19.0) | [`12.16.0`](../../releases/tag/desktop-v12.16.0) |
+| Version | [`0.20.0`](../../releases/tag/tui-v0.20.0) | [`12.16.0`](../../releases/tag/desktop-v12.16.0) |
 
 ## Downloads
 
-| Platform | Axym TUI 0.19.0 | Axym Desktop 12.16.0 |
+| Platform | Axym TUI 0.20.0 | Axym Desktop 12.16.0 |
 |---|---|---|
-| macOS — Apple Silicon & Intel | [axym-0.19.0-macos.tar.gz](https://github.com/irshadpc/axym-community/releases/download/tui-v0.19.0/axym-0.19.0-macos.tar.gz) | [Axym_12.16.0_universal.dmg](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.16.0/Axym_12.16.0_universal.dmg) |
-| Linux x86_64 | [axym-0.19.0-linux-x86_64.tar.gz](https://github.com/irshadpc/axym-community/releases/download/tui-v0.19.0/axym-0.19.0-linux-x86_64.tar.gz) | [axym-12.16.0-linux-x86_64.tar.gz](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.16.0/axym-12.16.0-linux-x86_64.tar.gz) |
-| Windows x86_64 | [axym-0.19.0-windows-x86_64.zip](https://github.com/irshadpc/axym-community/releases/download/tui-v0.19.0/axym-0.19.0-windows-x86_64.zip) | [axym-12.16.0-windows-x86_64.zip](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.16.0/axym-12.16.0-windows-x86_64.zip) |
+| macOS — Apple Silicon & Intel | [axym-0.20.0-macos.tar.gz](https://github.com/irshadpc/axym-community/releases/download/tui-v0.20.0/axym-0.20.0-macos.tar.gz) | [Axym_12.16.0_universal.dmg](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.16.0/Axym_12.16.0_universal.dmg) |
+| Linux x86_64 | [axym-0.20.0-linux-x86_64.tar.gz](https://github.com/irshadpc/axym-community/releases/download/tui-v0.20.0/axym-0.20.0-linux-x86_64.tar.gz) | [axym-12.16.0-linux-x86_64.tar.gz](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.16.0/axym-12.16.0-linux-x86_64.tar.gz) |
+| Windows x86_64 | [axym-0.20.0-windows-x86_64.zip](https://github.com/irshadpc/axym-community/releases/download/tui-v0.20.0/axym-0.20.0-windows-x86_64.zip) | [axym-12.16.0-windows-x86_64.zip](https://github.com/irshadpc/axym-community/releases/download/desktop-v12.16.0/axym-12.16.0-windows-x86_64.zip) |
 
 Every release also carries `SHA256SUMS.txt`; TUI releases add a machine-readable `release-manifest.json` (version, source commit, per-file hashes). See [Verify a download](#verify-a-download).
 
@@ -32,7 +32,7 @@ Every release also carries `SHA256SUMS.txt`; TUI releases add a machine-readable
 The macOS archive contains `axym-macos-arm64` (Apple Silicon) and `axym-macos-x64` (Intel); the Linux archive contains `axym-linux-x86_64`.
 
 ```sh
-tar -xzf axym-0.19.0-macos.tar.gz     # or axym-0.19.0-linux-x86_64.tar.gz
+tar -xzf axym-0.20.0-macos.tar.gz     # or axym-0.20.0-linux-x86_64.tar.gz
 ./axym-macos-arm64 --version          # Intel Mac: ./axym-macos-x64
 ./axym-macos-arm64 --install          # optional: copies to ~/.local/bin + man page
 axym                                  # start a session in the current project
@@ -114,12 +114,12 @@ Configure a project by dropping [`.axym.yaml`](https://github.com/irshadpc/axym/
 
 ## What's new
 
-**TUI 0.19.0** · [full notes](../../releases/tag/tui-v0.19.0)
+**TUI 0.20.0** · [full notes](../../releases/tag/tui-v0.20.0)
 
-- The tasks chip now tracks the agent's **real todo state** (live `TodoWrite` writes) instead of counting numbered lines in prose — the counter used to freeze at "0/25".
-- Readable bottom bar: M-scale context numbers, separated chips, cleaner context line on narrow terminals.
-- Built-in **reverse-engineering skill** ships inside the binary.
-- Surfaces the new governed graph-execution mode when the runtime exposes it.
+- **Team collaboration:** `/share` shows collaborators everything they need to follow a session or live run — read-only viewer command (`/view <run-id>`), terminal re-attach (`axym attach`) and mobile pairing (`/remote`). Shared viewers connect with isolated read-only event cursors; only authorized operators can steer or approve.
+- **Agent Hub:** press `alt+a` anywhere to toggle the live run roster — select, attach, or kill (`x`) a run without leaving what you're doing.
+- **Agent steering controls** and **provider diversity pairing** for governed runtime runs.
+- **Stage cost waterfall:** per-stage tokens, spend and call counts, so you can see where a run's budget went.
 
 **Desktop 12.16.0** · [full notes](../../releases/tag/desktop-v12.16.0)
 
