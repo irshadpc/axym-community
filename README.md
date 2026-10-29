@@ -14,6 +14,7 @@ Axym ships as two products that share one runtime:
 | What it is | One standalone executable: a session UI, permission gate and headless mode on top of the AI coding CLI you already use | The whole pipeline (plan → design → code → review → security → QA) with mission control, approval gates and in-app updates |
 | Best for | Driving your own agent CLI (`claude`, `opencode`, `codex`, `gemini`, `cursor-agent`, `copilot`, `agy`) from a fast terminal UI | Running autonomous multi-stage engineering work end-to-end, with diffs to approve and tamper-evident run history |
 | Version | [`0.20.0`](../../releases/tag/tui-v0.20.0) | [`12.16.0`](../../releases/tag/desktop-v12.16.0) |
+| Every feature | [TUI catalog](FEATURES.md#axym-tui--terminal-agent) | [Desktop catalog](FEATURES.md#axym-desktop--full-app) |
 
 ## Downloads
 
@@ -100,17 +101,48 @@ Configure a project by dropping [`.axym.yaml`](https://github.com/irshadpc/axym/
 
 ## Features
 
-**One system, many providers.** Drive Claude Code, Codex, OpenCode, Gemini, Antigravity and more with automatic failover, unified context caching and session portability across the TUI, Desktop and web surfaces.
+The short version: pick the surface that fits the job. Both share the same providers, project configuration and safety model.
 
-**Deterministic safeguards.** Tool-admission policy flags destructive operations and asks first. Vulnerability claims must be backed by captured observations — fabricated AI output is gated. Every run event is hash-chained into the local SQLite store, so run history is tamper-evident and replayable.
+<!-- features:start -->
+### Axym TUI — terminal agent
 
-**A real pipeline, not a chat.** Goals flow through specialized stages — plan, design, code, review, security, QA — each with its own gates, evidence and scoring. Runs execute in isolated worktrees; parallel runs don't stomp on each other.
+One standalone executable: a session UI, permission gate and headless mode built on top of the AI coding CLI you already use.
 
-**Skills.** Versioned, sandboxed extensions hot-reload into both apps. Bundled today: **product-thinking** (fuzzy request → scoped decision), **engineering intelligence** (investigation/verification discipline), **reverse-engineering** (new — analyze shipped binaries, bundles, APKs and websites with plain CLI tools), **sca-fix** (remediate a Sonatype/SCA report for Java/Maven), and **break-it QA** (adversarial personas against existing features). Toggle them with `/skills` in the TUI or the Skill Dashboard in Desktop.
+- **Sessions, providers & models** — Bring any installed agent CLI, switch models mid-session, and recover when a provider fails.
+- **Chat, transcript & results** — Read the agent's work as it happens and see a structured result when the turn ends.
+- **Input & editor** — A terminal composer that behaves like a real editor, with fast paths for files, history and images.
+- **Modes, permissions & safety** — Decide how much the agent may do, and keep the terminal recoverable when something goes wrong.
+- **Workspaces & engineering views** — Move from a conversation to the evidence, graph, health and handoff views behind it.
+- **Verification, review & delivery** — Turn a change into evidence: review it, test it, scan it, and keep a reversible history.
+- **Skills & customization** — Extend the agent with the same skills and project configuration the desktop app uses.
+- **Multi-model, fleet & automation** — Use more than one model deliberately, watch many runs, and automate the TUI from scripts.
+- **Collaboration, remote & handoff** — Keep working when you leave the terminal, and let other people follow or take over safely.
+- **Runtime, recovery & operations** — Connect to the governed runtime, keep long work alive, and update safely.
 
-**Mission control.** Live pipeline DAG, run history with outcome scores, approval gates with real diffs, council decision records (full candidate sets, anonymized ballots, Borda consensus), and a self-evaluation harness that keeps comparing the system's own architecture against alternatives.
+### Axym Desktop — full app
 
-**Local-first.** Everything runs on your hardware — Rust/Tauri runtime, embedded SQLite event store, crash-journaled side effects with exactly-once recovery. No telemetry leaves the machine.
+The full engineering app: governed plan, design, code, security, review and QA runs with mission control, approval gates and an audit trail.
+
+- **Pipeline & execution** — Turn a plain-English goal into a governed engineering run with the right amount of planning and parallelism.
+- **Mission control & navigation** — Start, find and orient work without knowing the internal architecture.
+- **Runs, approvals & review** — See exactly what the agent did, approve it with evidence, and compare outcomes.
+- **Providers, models & routing** — Use the best available model for each stage and fail over without losing the run.
+- **Intelligence & learning** — The system keeps evidence about what worked, what failed and what to try next.
+- **Verification, security & governance** — Deterministic checks and non-bypassable policy sit between the model and your working tree.
+- **Skills, plugins & customization** — Extend both apps with the same versioned skills, plugins and project context.
+- **Operations, observability & assurance** — See the whole system's health, history and release readiness.
+- **Collaboration, mobile & continuity** — Move work between people, devices and machines without losing the thread.
+
+### Shared foundation
+
+- **One runtime, three interfaces** — The same Rust/Tauri core backs Desktop, the TUI and the mobile bridge.
+- **Safety and evidence** — The same fail-closed rules apply whichever surface you use.
+- **Extensibility** — Skills, plugins and project context work across both products.
+
+**[Open the complete feature catalog →](FEATURES.md)** — every command, screen and capability, grouped by what you are trying to do.
+<!-- features:end -->
+
+Everything runs on your hardware: embedded Rust/Tauri runtime, SQLite event store, crash-journaled side effects and no telemetry leaving the machine.
 
 ## What's new
 
