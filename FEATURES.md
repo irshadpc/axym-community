@@ -2,7 +2,7 @@
 
 Every user-facing capability in Axym, grouped by the job you are trying to do. The TUI is the fast terminal agent; the Desktop app is the full engineering pipeline. Both share the same provider conventions, project configuration and safety model.
 
-**Last updated:** 2026-10-29 · **Axym TUI:** 0.20.0 · **Axym Desktop:** 12.16.0
+**Last updated:** 2026-10-30 · **Axym TUI:** 0.21.0 · **Axym Desktop:** 12.16.0
 
 > This catalog is generated from one source so the TUI and Desktop always describe the same capabilities.
 
@@ -131,8 +131,8 @@ Use more than one model deliberately, watch many runs, and automate the TUI from
 
 - **Council mode** — Runs the same prompt across two or more providers in parallel and merges their answers into one synthesized response.
   _Where:_ /council <prompt>
-- **Provider diversity pairing** — Pairs agents across different providers so independent models cross-check each other's work on a governed run.
-  _Where:_ Governed runtime run configuration
+- **Cross-provider verification** — Run review or security on a different provider than the coder; the run labels whether the verifier was independent of the code author or shared its provider and model.
+  _Where:_ Desktop → Expert options → AI system per stage
 - **Agent Hub and fleet overview** — Toggle a live roster of runtime runs, select and attach to one, or read configured capacity, active runs, oldest in-flight work and recent failures.
   _Where:_ Alt+A · /agents · /fleet
 - **Run comparison and stage costs** — Compare what two runtime runs actually ran against (commit, dependencies, config), and read per-stage token, spend and call-count evidence.
